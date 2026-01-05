@@ -1,10 +1,12 @@
 #ifndef __PTHREAD_EXTRA__
 #define __PTHREAD_EXTRA__
 
-#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
-
+#ifndef _WIN32
 #include <unistd.h>
 #include <pthread.h>
+#endif
+
+#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
 
 /* a compatability layer for pthread barrier */
 

@@ -1,7 +1,6 @@
-#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
-
-#include <errno.h>
 #include "pthread_barrier.h"
+
+#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
 
 int
 pthread_barrier_destroy(pthread_barrier_t *barrier) {
