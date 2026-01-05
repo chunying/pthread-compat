@@ -3,7 +3,7 @@ AR      = lib
 CFLAGS  = /nologo /utf-8 /W4 /Zi /MD
 LDFLAGS = libpthread_compat.lib
 
-PROGS   = libpthread_compat.a
+PROGS   = libpthread_compat.lib
 LIBOBJ  = pthread_win32.obj pthread_barrier.obj
 
 all: $(PROGS)
