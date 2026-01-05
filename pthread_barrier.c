@@ -1,4 +1,4 @@
-#if defined(_POSIX_VERSION) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
+#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
 
 #include <errno.h>
 #include "pthread_barrier.h"

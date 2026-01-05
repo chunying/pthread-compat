@@ -1,7 +1,7 @@
 #ifndef __PTHREAD_EXTRA__
 #define __PTHREAD_EXTRA__
 
-#if defined(_POSIX_VERSION) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
+#if !defined(_WIN32) && (!defined(_POSIX_BARRIERS) || (_POSIX_BARRIERS == -1))
 
 #include <unistd.h>
 #include <pthread.h>
