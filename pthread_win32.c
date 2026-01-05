@@ -23,7 +23,7 @@ thread_entry(void *arg) {
 
 /* thread */
 
-STATIC int
+int
 pthread_create(pthread_t *thread, void *attr,
 	void *(*start_routine)(void *), void *arg) {
 	(void) attr;
@@ -44,7 +44,7 @@ pthread_create(pthread_t *thread, void *attr,
 	return 0;
 }
 
-STATIC int
+int
 pthread_detach(pthread_t *thread) {
 	thread->detached = 1;
 	CloseHandle(thread->handle);
@@ -52,7 +52,7 @@ pthread_detach(pthread_t *thread) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_join(pthread_t thread, void **retval) {
 	(void) retval;
 	WaitForSingleObject(thread.handle, INFINITE);
@@ -62,7 +62,7 @@ pthread_join(pthread_t thread, void **retval) {
 
 /* mutex */
 
-STATIC int
+int
 pthread_mutex_init(pthread_mutex_t *mutex, void *attr) {
 	(void)attr;
 #if _WIN32_WINNT >= 0x0600
@@ -73,7 +73,7 @@ pthread_mutex_init(pthread_mutex_t *mutex, void *attr) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_mutex_destroy(pthread_mutex_t *mutex) {
 #if _WIN32_WINNT >= 0x0600
 	/* do nothing */
@@ -83,7 +83,7 @@ pthread_mutex_destroy(pthread_mutex_t *mutex) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_mutex_lock(pthread_mutex_t *mutex) {
 #if _WIN32_WINNT >= 0x0600
 	AcquireSRWLockExclusive(mutex);
@@ -93,7 +93,7 @@ pthread_mutex_lock(pthread_mutex_t *mutex) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_mutex_unlock(pthread_mutex_t *mutex) {
 #if _WIN32_WINNT >= 0x0600
 	ReleaseSRWLockExclusive(mutex);
@@ -105,20 +105,20 @@ pthread_mutex_unlock(pthread_mutex_t *mutex) {
 
 /* condition variable */
 
-STATIC int
+int
 pthread_cond_init(pthread_cond_t *cond, void *attr) {
 	(void)attr;
 	InitializeConditionVariable(cond);
 	return 0;
 }
 
-STATIC int
+int
 pthread_cond_destroy(pthread_cond_t *cond) {
 	(void)cond;
 	return 0; /* no-op on Windows */
 }
 
-STATIC int
+int
 pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex) {
 #if _WIN32_WINNT >= 0x0600
 	SleepConditionVariableSRW(cond, mutex, INFINITE, 0);
@@ -128,20 +128,20 @@ pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_cond_broadcast(pthread_cond_t *cond) {
 	WakeAllConditionVariable(cond);
 	return 0;
 }
 
-STATIC int
+int
 pthread_cond_signal(pthread_cond_t *cond) {
 	WakeConditionVariable(cond);
 	return 0;
 }
 
 /* barrier */
-STATIC int
+int
 pthread_barrier_init(pthread_barrier_t *barrier, void *attr, unsigned count) {
 	(void)attr;
 
@@ -156,7 +156,7 @@ pthread_barrier_init(pthread_barrier_t *barrier, void *attr, unsigned count) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_barrier_wait(pthread_barrier_t *barrier) {
 	BOOL last = EnterSynchronizationBarrier(
 		barrier,
@@ -172,7 +172,7 @@ pthread_barrier_wait(pthread_barrier_t *barrier) {
 	return 0;
 }
 
-STATIC int
+int
 pthread_barrier_destroy(pthread_barrier_t *barrier) {
 	DeleteSynchronizationBarrier(barrier);
 	return 0;
