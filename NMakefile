@@ -1,0 +1,20 @@
+CC      = cl
+AR      = lib
+CFLAGS  = /nologo /utf-8 /W4 /Zi /MD
+LDFLAGS = libpthread_compat.lib
+
+PROGS   = libpthread_compat.a
+LIBOBJ  = pthread_win32.obj pthread_barrier.obj
+
+all: $(PROGS)
+
+%.obj: %.c %.h
+	$(CC) $(CFLAGS) /c $<
+
+libpthread_compat.lib: pthread_compat.h $(LIBOBJ)
+	$(AR) /nologo /OUT:$@ $(LIBOBJ)
+
+clean:
+	del /Q *.obj *.exe *.lib *.pdb *.ilk
+
+# debugging: devenv /debugexe main.exe
