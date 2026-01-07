@@ -45,10 +45,10 @@ pthread_create(pthread_t *thread, void *attr,
 }
 
 int
-pthread_detach(pthread_t *thread) {
-	thread->detached = 1;
-	CloseHandle(thread->handle);
-	thread->handle = NULL;
+pthread_detach(pthread_t thread) {
+	thread.detached = 1;
+	CloseHandle(thread.handle);
+	thread.handle = NULL;
 	return 0;
 }
 

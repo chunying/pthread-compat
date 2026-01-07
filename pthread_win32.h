@@ -28,7 +28,7 @@ typedef SYNCHRONIZATION_BARRIER pthread_barrier_t;
 
 /* thread */
 int pthread_create(pthread_t *thread, void *attr, void *(*start_routine)(void *), void *arg);
-int pthread_detach(pthread_t *thread);
+int pthread_detach(pthread_t thread);
 int pthread_join(pthread_t thread, void **retval);
 
 /* mutex */
